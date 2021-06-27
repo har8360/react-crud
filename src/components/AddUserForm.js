@@ -11,7 +11,7 @@ const AddUserForm = (props) => {
 
   const onSubmit = (data) => {
     console.log(data);
-    props.addUsers(data);
+    props.addUser(data);
     reset();
   };
   return (

@@ -18,9 +18,17 @@ function App() {
   const [users, setUsers] = useState(usersData);
 
   //adding users
-  const addUsers = (user) => {
+  const addUser = (user) => {
     user.id = setId();
     setUsers([...users, user]);
+  };
+
+  //deleting a usuer
+  const deleteUser = (id) => {
+    console.log(id);
+    const FilteredArray = users.filter((user) => user.id !== id);
+    console.log(FilteredArray);
+    setUsers(FilteredArray);
   };
 
   return (
@@ -29,11 +37,11 @@ function App() {
       <div className="flex-row">
         <div className="flex-large">
           <h2>Add user</h2>
-          <AddUserForm addUsers={addUsers} />
+          <AddUserForm addUser={addUser} />
         </div>
         <div className="flex-large">
           <h2>View users</h2>
-          <UserTable users={users} />
+          <UserTable users={users} deleteUser={deleteUser} />
         </div>
       </div>
     </div>
