@@ -1,34 +1,43 @@
 import React, { Fragment } from "react";
 import { useForm } from "react-hook-form";
 
-const AddUserForm = (props) => {
+const EditUserForm = (props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
     reset,
-  } = useForm();
+    setValue,
+    formState: { errors },
+  } = useForm({
+    defaultValues: props.currentUser,
+  });
+
+  setValue("name", props.currentUser.name);
+  setValue("username", props.currentUser.username);
+
+  console.log(props.currentUser);
 
   const onSubmit = (data) => {
     console.log(data);
-    props.addUser(data);
+    props.updateUser(props.currentUser.id, data);
     reset();
   };
+
   return (
     <Fragment>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label>Name</label>
         <input type="text" {...register("name", { required: true })} />
-        <span style={{ color: "red" }}>{errors.name && "Required field"}</span>
+        <span style={{ color: "red" }}>{errors.name && "required field"}</span>
         <label>Username</label>
         <input type="text" {...register("username", { required: true })} />
         <span style={{ color: "red" }}>
-          {errors.username && "Required field"}
+          {errors.username && "required field"}
         </span>
-        <button>Add new user</button>
+        <button>Save</button>
       </form>
     </Fragment>
   );
 };
 
-export default AddUserForm;
+export default EditUserForm;
